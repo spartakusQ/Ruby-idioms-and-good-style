@@ -1,5 +1,4 @@
 class Route
-
   include Validate
   attr_reader :stations, :from, :to
 
@@ -9,22 +8,22 @@ class Route
   end
 
   def add_station(station)
-    self.stations.insert(-2, station)
+    stations.insert(-2, station)
     puts "К маршруту #{stations.first.station_name} - #{stations.last.station_name} добавлена станция #{station.station_name}"
   end
 
   def remove_station(station)
     if [stations.first, stations.last].include?(station)
-      puts "Первую и последнюю станции маршрута удалять нельзя!"
+      puts 'Первую и последнюю станции маршрута удалять нельзя!'
     else
-      self.stations.delete(station)
+      stations.delete(station)
       puts "Из маршрутного листа #{stations.first.station_name} - #{stations.last.station_name} удалена станция #{station.station_name}"
     end
   end
 
   def show_stations
     puts "В маршрутный лист #{stations.first.station_name} - #{stations.last.station_name} входят станции с именами: "
-    stations.each{|station| puts " #{station.station_name}" }
+    stations.each { |station| puts " #{station.station_name}" }
   end
 
   protected

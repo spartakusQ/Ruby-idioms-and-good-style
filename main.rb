@@ -21,10 +21,10 @@ class Main
     @carriages = []
   end
 
-  CARRIAGE_TYPES = {'cargo' => CargoCarriage, 'passenger' => PassengerCarriage}
+  CARRIAGE_TYPES = { 'cargo' => CargoCarriage, 'passenger' => PassengerCarriage }.freeze
 
   def menu
-    puts %Q(
+    puts %(
       Выберете нужное вам меню:
       1.Создание станции.
       2.Создание поезда.
@@ -41,41 +41,43 @@ class Main
     input = gets.to_i
     case input
     when 1
-      #1.Создание станции.
+      # 1.Создание станции.
       create_station
     when 2
-      #2.Создание поезда.
+      # 2.Создание поезда.
       create_train
     when 3
-      #3.Создание маршрута и управление станциями.
+      # 3.Создание маршрута и управление станциями.
       create_route
     when 4
-      #4.Назначение маршрута поезду.
+      # 4.Назначение маршрута поезду.
       route_train
     when 5
-      #5.Добавление выгоны к поезду.
+      # 5.Добавление выгоны к поезду.
       add_carriage
     when 6
-      #6.Отцепить вагоны от поезда.
+      # 6.Отцепить вагоны от поезда.
       unhook_carriage
     when 7
-      #7.Перемещать поезд по маршруту вперёд и назад.
+      # 7.Перемещать поезд по маршруту вперёд и назад.
       move_train
     when 8
-      #8.Просматривать список станций и список поездов на станции.
+      # 8.Просматривать список станций и список поездов на станции.
       station_menu
     when 9
-      #9.Просмотр данных о поезде.
+      # 9.Просмотр данных о поезде.
       train_info
     when 0
-      #0.Выход из меню.
+      # 0.Выход из меню.
       puts 'Счастливого пути!'
       exit
     end
   end
+
   private
-  #все вызовы будут происходить через case input
-  #создание станции
+
+  # все вызовы будут происходить через case input
+  # создание станции
   def create_station
     puts 'Введите название станции которую хотите создать: '
     name = gets.chomp.capitalize
@@ -85,7 +87,7 @@ class Main
     menu
   end
 
-  #создание поезда
+  # создание поезда
   def create_train
     puts 'Поезд с каким номером хотите создать?'
     puts '1 - пассажирский; 2 - грузовой'
@@ -106,35 +108,38 @@ class Main
       puts "Поезд номер #{number} грузового типа создан"
       menu
     end
-    #обработка кода ошибки RuntimeError
+    # обработка кода ошибки RuntimeError
   rescue RuntimeError => e
     puts e.message
     menu
   end
-  #маршрутный лист станий (показывает все станции)
+
+  # маршрутный лист станий (показывает все станции)
   def station_list
     stations.each { |station| puts station.station_name } || 'Станций не существует'
   end
-  #Создание маршрута и управление станциями.
+
+  # Создание маршрута и управление станциями.
   def create_route
-      station_list
-      puts 'Выберете начальную станцию маршрута из списка:'
-      input = gets.chomp.capitalize
-      index = @stations.find_index { |station| station.station_name == input }
-      first = @stations[index]
-      puts 'Выберите конечную станцию маршрута из списка:'
-      input = gets.chomp.capitalize
-      index = @stations.find_index { |station| station.station_name == input }
-      last = @stations[index]
-      @route = Route.new(first, last)
-      @routes << @route
-      puts "Маршрут #{route.stations} создан"
-      menu
-    rescue RuntimeError, TypeError => e
-      puts e.message
-      retry
+    station_list
+    puts 'Выберете начальную станцию маршрута из списка:'
+    input = gets.chomp.capitalize
+    index = @stations.find_index { |station| station.station_name == input }
+    first = @stations[index]
+    puts 'Выберите конечную станцию маршрута из списка:'
+    input = gets.chomp.capitalize
+    index = @stations.find_index { |station| station.station_name == input }
+    last = @stations[index]
+    @route = Route.new(first, last)
+    @routes << @route
+    puts "Маршрут #{route.stations} создан"
+    menu
+  rescue RuntimeError, TypeError => e
+    puts e.message
+    retry
   end
-  #модуль выбор поезда из списка
+
+  # модуль выбор поезда из списка
   def invalid_number
     puts 'Некорректный номер'
   end
@@ -149,7 +154,7 @@ class Main
     index.nil? ? invalid_number && menu : @train = @trains[index]
   end
 
-  #Назначение маршрута поезду.
+  # Назначение маршрута поезду.
   def route_train
     if trains.empty?
       puts 'Сначала необходимо создать поезд'
@@ -158,22 +163,21 @@ class Main
     else
       puts 'Какой поезд? (введите номер)'
       number = gets.chomp
-      train = trains.detect{|train| train.number == number}
-      unless train
-        puts 'Поезда с таким номером нет'
-      else
+      train = trains.detect { |train| train.number == number }
+      if train
         puts 'На какую станцию? (название)'
         name = gets.chomp
-        station = stations.detect{|station| station.station_name == name}
-        if station.nil?
-          puts 'Такой станции нет'
-        end
+        station = stations.detect { |station| station.station_name == name }
+        puts 'Такой станции нет' if station.nil?
+      else
+        puts 'Поезда с таким номером нет'
       end
     end
     menu
   end
-  #Добавление выгоны к поезду.
-  #создание меню для добавления вагонов
+
+  # Добавление выгоны к поезду.
+  # создание меню для добавления вагонов
   def menu_carriage
     puts 'Выберите какой вагон вы хотите прицепить?'
     puts '1 - пассажирский'
@@ -209,7 +213,7 @@ class Main
     retry
   end
 
-  #Отцепить вагоны от поезда.
+  # Отцепить вагоны от поезда.
   def unhook_carriage
     puts 'Выберите поезд(по номеру) от которого хотите отцепить вагон:'
     selected_train.remove_carriage
@@ -217,25 +221,25 @@ class Main
     puts "Кол-во вагонов - #{@train.carriages.size}"
     menu
   end
-  #Перемещать поезд по маршруту вперёд и назад.
+
+  # Перемещать поезд по маршруту вперёд и назад.
   def move_train
     puts 'Выберите в каком направлении хотите отправить поезд:'
     puts '1 - вперёд; 2 - назад'
     input = gets.chomp.to_i
     case input
     when 1
-      #добавить метод move_next
+      # добавить метод move_next
       puts 'Введите номер поезда, который хотите отправить вперед'
       selected_train.move_next
       puts "Поезд #{train.number} прибыл на станцию #{@train.current_station.name}"
       menu
     when 2
-      #добавить метод move_previous
+      # добавить метод move_previous
       puts 'Введите номер поезда, который хотите отправить назад'
       selected_train.move_previous
       puts "Поезд #{train.number} прибыл на станцию #{@train.current_station.name}"
       menu
     end
   end
-
 end

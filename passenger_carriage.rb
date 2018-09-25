@@ -1,4 +1,4 @@
-#класс пассажирского вагона, родительским является вагон
+# класс пассажирского вагона, родительским является вагон
 class PassengerCarriage < Carriage
   def initialize(num, seats)
     @num = num.to_i
@@ -9,6 +9,7 @@ class PassengerCarriage < Carriage
 
   def occupy_seat
     raise 'Все места заняты' if @occupied_seats == @seats
+
     @occupied_seats += 1
   end
 

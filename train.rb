@@ -2,7 +2,6 @@ require_relative 'instance_counter'
 require_relative 'company_name'
 require_relative 'validation'
 
-
 class Train
   include Validate
   include InstanceCounter
@@ -26,15 +25,15 @@ class Train
     self.speed = 0
   end
 
-  def up_speed(speed)
+  def up_speed(_speed)
     @speed += 10
   end
 
   def current_speed
-    self.speed
+    speed
   end
 
-  def down_speed(speed)
+  def down_speed(_speed)
     @speed -= 10
     @speed = 0 if @speed < 0
   end
@@ -46,11 +45,11 @@ class Train
 
   def remove_carriage
     if carriage.zero?
-      puts "Вагонов уже не осталось."
+      puts 'Вагонов уже не осталось.'
     elsif speed.zero?
       self.carriage -= 1
     else
-      puts "На ходу нельзя отцеплять вагоны!"
+      puts 'На ходу нельзя отцеплять вагоны!'
     end
   end
 
@@ -61,7 +60,7 @@ class Train
 
   def go_to(station)
     if route.nil?
-      puts "Без маршрута следования поезд не может отправиться."
+      puts 'Без маршрута следования поезд не может отправиться.'
     elsif @station == station
       puts "Поезд с номером #{@number} и так на станции #{@station.station_name}"
     elsif route.stations.include?(station)
@@ -75,7 +74,7 @@ class Train
 
   def stations_around
     if route.nil?
-      puts "Маршрут следования поезда не задан."
+      puts 'Маршрут следования поезда не задан.'
     else
       station_index = route.stations.index(station)
       puts "Сейчас поезд на станции #{station.station_name}."
@@ -94,6 +93,7 @@ class Train
 
   def move_next
     return if last_station?
+
     current_station.depart_train(self)
     @station_index += 1
     current_station.add_train(self)
@@ -101,6 +101,7 @@ class Train
 
   def move_previous
     return if first_station?
+
     current_station.depart_train(self)
     @station_index -= 1 if @station_index > 0
     current_station.add_train(self)
@@ -111,6 +112,4 @@ class Train
   def validate!
     raise 'Номер поезда неправильного формата' if number.to_s !~ VALID_NUMBER
   end
-
-
 end

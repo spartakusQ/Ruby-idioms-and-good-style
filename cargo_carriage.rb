@@ -1,4 +1,4 @@
-#класс грузового вагона, родительским является класс вагон
+# класс грузового вагона, родительским является класс вагон
 class CargoCarriage < Carriage
   def initialize(num, capacity)
     @num = num.to_i
@@ -9,6 +9,7 @@ class CargoCarriage < Carriage
 
   def load(capacity)
     raise 'Объем вагона не может быть меньше 0' if @free_capacity - capacity < 0
+
     @free_capacity -= capacity
   end
 
