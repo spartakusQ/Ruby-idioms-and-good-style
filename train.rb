@@ -55,7 +55,8 @@ class Train
 
   def take_route(route)
     self.route = route
-    puts "Поезду с номером #{number} задан маршрут #{route.stations.first.station_name} - #{route.stations.last.station_name}"
+    puts "Поезду с номером #{number} задан маршрут
+    #{route.stations.first.station_name} - #{route.stations.last.station_name}"
   end
 
   def go_to(station)
@@ -68,7 +69,8 @@ class Train
       @station = station
       station.get_train(self)
     else
-      puts "Станция #{station.station_name} не входит в маршрут поезда с номером#{number}"
+      puts "Станция #{station.station_name}
+            не входит в маршрут поезда с номером#{number}"
     end
   end
 
