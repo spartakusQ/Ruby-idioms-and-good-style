@@ -1,7 +1,7 @@
 require_relative 'instance_counter'
 require_relative 'company_name'
 require_relative 'validation'
-
+# class for trains management
 class Train
   include Validate
   include InstanceCounter
@@ -63,7 +63,7 @@ class Train
     if route.nil?
       puts 'Без маршрута следования поезд не может отправиться.'
     elsif @station == station
-      puts "Поезд с номером #{@number} и так на станции #{@station.station_name}"
+      puts "Поезд с номером #{@number} уже на станции #{@station.station_name}"
     elsif route.stations.include?(station)
       @station.send_train(self) if @station
       @station = station

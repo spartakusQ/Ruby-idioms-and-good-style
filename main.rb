@@ -8,6 +8,7 @@ require_relative 'passenger_train'
 require_relative 'passenger_carriage'
 require_relative 'validation'
 
+# class for program management
 class Main
   attr_accessor :station, :trains, :train, :route, :stations,
                 :number, :name, :carriage, :type, :carriages, :num
@@ -20,8 +21,6 @@ class Main
     @routes = []
     @carriages = []
   end
-
-  CARRIAGE_TYPES = { 'cargo' => CargoCarriage, 'passenger' => PassengerCarriage }.freeze
 
   def menu
     puts %(
@@ -186,7 +185,8 @@ class Main
     menu_carriage
     puts 'Выберите поезд(по номеру) к которому хотите прицепить вагон:'
     selected_train.add_carriage(carriage)
-    puts "К #{@train.number} прицеплен вагон #{carriage.class} кол-во вагонов - #{@train.carriages.size}"
+    puts "К #{@train.number} прицеплен вагон #{carriage.class}
+     кол-во вагонов - #{@train.carriages.size}"
     menu
   rescue RuntimeError, TypeError => e
     puts e.message
@@ -209,12 +209,14 @@ class Main
     when 1
       puts 'Введите номер поезда, который хотите отправить вперед'
       selected_train.move_next
-      puts "Поезд #{train.number} прибыл на станцию #{@train.current_station.name}"
+      puts "Поезд #{train.number}
+       прибыл на станцию #{@train.current_station.name}"
       menu
-    when 2      
+    when 2
       puts 'Введите номер поезда, который хотите отправить назад'
       selected_train.move_previous
-      puts "Поезд #{train.number} прибыл на станцию #{@train.current_station.name}"
+      puts "Поезд #{train.number}
+       прибыл на станцию #{@train.current_station.name}"
       menu
     end
   end

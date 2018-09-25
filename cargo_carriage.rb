@@ -1,3 +1,4 @@
+# family class to Carriage
 class CargoCarriage < Carriage
   def initialize(num, capacity)
     @num = num.to_i
@@ -17,7 +18,8 @@ class CargoCarriage < Carriage
   end
 
   def to_s
-    "Номер вагона - #{num} тип - #{self.class}, занятый объём - #{occupy_capacity}, cвободный объем - #{@free_capacity}"
+    "Номер вагона - #{num} тип - #{self.class},
+    занятый объём - #{occupy_capacity}, cвободный объем - #{@free_capacity}"
   end
 
   protected

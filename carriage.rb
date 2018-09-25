@@ -1,3 +1,4 @@
+# base class Carriage for train
 class Carriage
   include CompanyName
   attr_reader :type, :num

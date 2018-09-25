@@ -1,4 +1,5 @@
 require_relative 'validation'
+# class for controlling trains at the station
 class TrainStation
   include InstanceCounter
   include Validate
@@ -21,7 +22,8 @@ class TrainStation
   def send_train(train)
     trains.delete(train)
     train.station = 0
-    puts "Со станции #{station_name} отправился поезд под номером: #{train.number}"
+    puts "Со станции #{station_name}
+     отправился поезд под номером: #{train.number}"
   end
 
   def show_trains(type = nil)

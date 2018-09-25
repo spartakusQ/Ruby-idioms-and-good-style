@@ -1,4 +1,4 @@
-# класс пассажирского вагона, родительским является вагон
+# class of a passenger car, the parent car is a Carriage
 class PassengerCarriage < Carriage
   def initialize(num, seats)
     @num = num.to_i
@@ -18,7 +18,8 @@ class PassengerCarriage < Carriage
   end
 
   def to_s
-    "Номер #{num} тип #{self.class}, занято - #{@occupied_seats}, свободных - #{free_seats}"
+    "Номер #{num} тип #{self.class},
+     занято - #{@occupied_seats}, свободных - #{free_seats}"
   end
 
   protected
